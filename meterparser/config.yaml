@@ -13,6 +13,7 @@ arch:
   - armhf
   - armv7
   - i386
+
 options:
   cameras:
     - snapshot_url: http://192.168.100.153/snapshot.jpg
