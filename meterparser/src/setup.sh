@@ -7,7 +7,7 @@ apt-get update
 # curl -s https://notesalexp.org/debian/alexp_key.asc | gpg --dearmor > /usr/share/keyrings/tesseract-archive-keyring.gpg 
 # echo "deb [signed-by=/usr/share/keyrings/tesseract-archive-keyring.gpg] https://notesalexp.org/tesseract-ocr5/bullseye/ bullseye main" >> /etc/apt/sources.list.d/tesseract.list 
 
-apt-get install -y build-essential autoconf libtool pkg-config 
-apt-get install -y --no-install-recommends python3-full ffmpeg #    tesseract-ocr 
+apt-get install -y build-essential autoconf libtool pkg-config python3-full python3-pip
+apt-get install -y --no-install-recommends ffmpeg #    tesseract-ocr 
 pip3 install --break-system-packages --no-cache-dir -r /src/requirements.txt 
 rm -fr /tmp/* /var/{cache,log}/* /var/lib/apt/lists/* 
