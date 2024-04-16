@@ -8,7 +8,7 @@ import threading
 from urllib.parse import urlparse
 
 from slugify import slugify
-from app.ha_api import supervisor, version
+from app.ha_api import supervisor, version, hostname
 from app.config import config
 
 _LOGGER = logging.getLogger(__name__)
@@ -27,7 +27,7 @@ class Mqtt (threading.Thread):
         self._mqtt_client.on_connect_fail = self._mqtt_connection_failed
 
         self.cameras: list[threading.Thread] = list()
-        self.device_id = slugify((os.environ["HOSTNAME"] if "HOSTNAME" in os.environ else os.environ["COMPUTERNAME"]).lower())
+        self.device_id = slugify(hostname().lower())
         self.device = {
                 "identifiers": self.device_id,
                 "manufacturer": "Meter Parser",

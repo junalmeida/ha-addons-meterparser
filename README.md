@@ -1,3 +1,5 @@
+<img src="./meterparser/icon.png" align="right" width="60">  
+
 # Home Assistant - Meter Parser AddOn
 [![BuyMeCoffee][buymecoffeebadge]][buymecoffee] ![Checks][checksbadge]
 ![Last release][releasebadge] [^1]
@@ -51,3 +53,4 @@ I also appreciate if you share the camera device specs and light conditions.
 [armhf-shield]: https://img.shields.io/badge/armhf-yes-green.svg?style=plastic
 [armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg?style=plastic
 [i386-shield]: https://img.shields.io/badge/i386-yes-green.svg?style=plastic
+

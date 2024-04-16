@@ -40,3 +40,20 @@ def version() -> str:
     except Exception as e:
         _LOGGER.error("Could not connect to supervisor: %s" % e)
         return "0.0.0.0"
+
+def hostname() -> str:
+    try:
+        if "SUPERVISOR_TOKEN" in os.environ:
+            supervisor_auth = {
+                "Authorization": "Bearer %s" % os.environ['SUPERVISOR_TOKEN']
+            }
+
+            result = requests.get(supervisor_api % ("addons/self/info"), headers=supervisor_auth)
+            result_json = result.json()
+            result_json = result_json["data"] if "data" in result_json else result_json
+            return result_json["hostname"] if "hostname" in result_json else "unknown"
+        else:
+            return "unknown"
+    except Exception as e:
+        _LOGGER.error("Could not connect to supervisor: %s" % e)
+        return "unknown"        
