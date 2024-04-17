@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/hassio-addons/debian-base/amd64:5.3.1
+ARG BUILD_FROM=ghcr.io/hassio-addons/debian-base/amd64:7.3.3
 # Build arguments
 ARG BUILD_ARCH
 ARG BUILD_DATE
@@ -8,7 +8,6 @@ ARG BUILD_REF
 ARG BUILD_REPOSITORY
 ARG BUILD_VERSION
 
-# 5.3.1 = debian:bullseye-20220328-slim
 # hadolint ignore=DL3006
 FROM ${BUILD_FROM}
 
