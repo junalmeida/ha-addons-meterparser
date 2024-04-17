@@ -36,4 +36,4 @@ LABEL \
     org.opencontainers.image.version=${BUILD_VERSION}
 
 
-CMD python3 /src
+CMD ["sh", "-c", "python3 /src --token ${SUPERVISOR_TOKEN}"]

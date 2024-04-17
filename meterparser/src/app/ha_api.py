@@ -8,16 +8,12 @@ _LOGGER = logging.getLogger(__name__)
 supervisor_api = "http://supervisor/%s"
 
 
-def supervisor(param: str):
-    if not "SUPERVISOR_TOKEN" in os.environ:
-        _LOGGER.error("SUPERVISOR_TOKEN not set.")
-        sys.exit(1)
-
+def supervisor(token:str, param: str):
     while True:
         try:
             _LOGGER.debug("Connecting to supervisor...")    
             supervisor_auth = {
-                "Authorization": "Bearer %s" % os.environ['SUPERVISOR_TOKEN']
+                "Authorization": "Bearer %s" % token
             }
 
             result = requests.get(supervisor_api % (
@@ -28,14 +24,10 @@ def supervisor(param: str):
         except Exception as e:
             _LOGGER.error("Could not connect to supervisor: %s. Retry in 5 secs." % e)
             time.sleep(5)
-def version() -> str:
-    if not "SUPERVISOR_TOKEN" in os.environ:
-        _LOGGER.error("SUPERVISOR_TOKEN not set.")
-        sys.exit(1)
-
+def version(token:str) -> str:
     try:
         supervisor_auth = {
-            "Authorization": "Bearer %s" % os.environ['SUPERVISOR_TOKEN']
+            "Authorization": "Bearer %s" % token
         }
 
         result = requests.get(supervisor_api % ("addons/self/info"), headers=supervisor_auth)
@@ -46,14 +38,10 @@ def version() -> str:
         _LOGGER.error("Could not connect to supervisor: %s" % e)
         return "0.0.0.0"
 
-def hostname() -> str:
-    if not "SUPERVISOR_TOKEN" in os.environ:
-        _LOGGER.error("SUPERVISOR_TOKEN not set.")
-        sys.exit(1)
-
+def hostname(token:str) -> str:
     try:
         supervisor_auth = {
-            "Authorization": "Bearer %s" % os.environ['SUPERVISOR_TOKEN']
+            "Authorization": "Bearer %s" % token
         }
 
         result = requests.get(supervisor_api % ("addons/self/info"), headers=supervisor_auth)

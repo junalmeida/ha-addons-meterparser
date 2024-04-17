@@ -15,10 +15,11 @@ _LOGGER = logging.getLogger(__name__)
 discovery_prefix = "homeassistant"
 
 class Mqtt (threading.Thread):
-    def __init__(self):
+    def __init__(self, token: str):
         threading.Thread.__init__(self)
         self._wait = threading.Event()
-        self.version = version()
+        self.token = token
+        self.version = version(token)
         self._mqtt_config = {}
         self._mqtt_client = mqtt.Client("meter-parser-addon")
         self._mqtt_client.on_connect = self._mqtt_connected
@@ -27,7 +28,7 @@ class Mqtt (threading.Thread):
         self._mqtt_client.on_connect_fail = self._mqtt_connection_failed
 
         self.cameras: list[threading.Thread] = list()
-        self.device_id = slugify(hostname().lower())
+        self.device_id = slugify(hostname(token).lower())
         self.device = {
                 "identifiers": self.device_id,
                 "manufacturer": "Meter Parser",
@@ -53,7 +54,7 @@ class Mqtt (threading.Thread):
                 "port": mqtt_url.port if mqtt_url.port is not None else 1883
             }
         else:
-            self._mqtt_config = supervisor("mqtt")
+            self._mqtt_config = supervisor(self.token, "mqtt")
             
         username = str(self._mqtt_config["username"])
         password = str(self._mqtt_config["password"])

@@ -1,2 +1,2 @@
 #!/bin/bash
-docker build --build-arg BUILD_FROM="ghcr.io/hassio-addons/debian-base/amd64:5.3.1" -t local/meterparser-addon . && docker run --rm -v "//c/Projects/personal/junalmeida/ha-addons/meterparser/data:/data" -it local/meterparser-addon
+docker build --build-arg BUILD_FROM="ghcr.io/hassio-addons/debian-base/amd64:7.3.3" -t local/meterparser-addon . && docker run --rm -v "./data:/data" -it local/meterparser-addon -e SUPERVISOR_TOKEN=1234
