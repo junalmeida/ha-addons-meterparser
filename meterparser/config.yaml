@@ -5,6 +5,10 @@ description: Read meter needles and numbers from a camera snapshot.
 url: https://github.com/junalmeida/ha-addons-meterparser
 init: false
 image: "ghcr.io/junalmeida/ha-addons-meterparser-{arch}"
+
+hassio_role: default
+hassio_api: true
+
 services:
   - "mqtt:need"
 arch:
