@@ -12,8 +12,6 @@ ARG BUILD_VERSION
 FROM ${BUILD_FROM}
 
 # Copy root filesystem
-COPY rootfs /
-COPY src /src
 
 RUN apt-get clean \
     && apt-get update \
@@ -24,8 +22,14 @@ RUN apt-get clean \
     && apt-get install -y --no-install-recommends ffmpeg \
     && rm -fr /tmp/* /var/{cache,log}/* /var/lib/apt/lists/* 
     # tesseract-ocr 
-RUN pip3 install --no-cache-dir -r /src/requirements.txt \
+
+COPY rootfs /
+COPY src/requirements.txt /tmp
+
+RUN pip3 install --no-cache-dir -r /tmp/requirements.txt \
     && rm -fr /tmp/* /var/{cache,log}/* /var/lib/apt/lists/* 
+
+COPY src /src
 
 # Labels
 LABEL \

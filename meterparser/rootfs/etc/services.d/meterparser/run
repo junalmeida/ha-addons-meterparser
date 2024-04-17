@@ -3,5 +3,12 @@
 # Runs meterparser
 # ==============================================================================
 
+declare -a options
+
+options+=(--token ${SUPERVISOR_TOKEN})
+if bashio::debug; then
+  options+=(--debug)
+fi
 bashio::log.info "Starting meterparser..."
-exec python3 /src --token ${SUPERVISOR_TOKEN}
+
+exec python3 /src "${options[@]}"
