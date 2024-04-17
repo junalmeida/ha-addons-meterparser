@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/hassio-addons/debian-base/amd64:7.3.3
+ARG BUILD_FROM
 # Build arguments
 ARG BUILD_ARCH
 ARG BUILD_DATE
@@ -12,8 +12,20 @@ ARG BUILD_VERSION
 FROM ${BUILD_FROM}
 
 # Copy root filesystem
+COPY rootfs /
 COPY src /src
-RUN chmod a+x /src/setup.sh && /src/setup.sh && rm /src/setup.sh
+
+RUN apt-get clean \
+    && apt-get update \
+    # apt-get install -y --no-install-recommends gnupg2 
+    # curl -s https://notesalexp.org/debian/alexp_key.asc | gpg --dearmor > /usr/share/keyrings/tesseract-archive-keyring.gpg 
+    # echo "deb [signed-by=/usr/share/keyrings/tesseract-archive-keyring.gpg] https://notesalexp.org/tesseract-ocr5/bullseye/ bullseye main" >> /etc/apt/sources.list.d/tesseract.list 
+    && apt-get install -y build-essential autoconf libtool pkg-config python3-full python3-pip python3-dev cmake git wget curl unzip \
+    && apt-get install -y --no-install-recommends ffmpeg \
+    && rm -fr /tmp/* /var/{cache,log}/* /var/lib/apt/lists/* 
+    # tesseract-ocr 
+RUN pip3 install --no-cache-dir -r /src/requirements.txt \
+    && rm -fr /tmp/* /var/{cache,log}/* /var/lib/apt/lists/* 
 
 # Labels
 LABEL \
@@ -34,6 +46,3 @@ LABEL \
     org.opencontainers.image.created=${BUILD_DATE} \
     org.opencontainers.image.revision=${BUILD_REF} \
     org.opencontainers.image.version=${BUILD_VERSION}
-
-
-CMD ["sh", "-c", "python3 /src --token ${SUPERVISOR_TOKEN}"]

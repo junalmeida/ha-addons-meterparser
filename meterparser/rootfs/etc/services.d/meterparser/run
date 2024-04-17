@@ -1,0 +1,7 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Runs meterparser
+# ==============================================================================
+
+bashio::log.info "Starting meterparser..."
+exec python3 /src --token ${SUPERVISOR_TOKEN}
