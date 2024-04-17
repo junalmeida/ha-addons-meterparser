@@ -1,5 +1,5 @@
 name: Meter Parser
-version: 1.0.3.1
+version: 1.0.3.2
 slug: meter-parser
 description: Read meter needles and numbers from a camera snapshot.
 url: https://github.com/junalmeida/ha-addons-meterparser
@@ -15,7 +15,7 @@ arch:
   - aarch64
   - amd64
   # - armhf
-  # - armv7
+  - armv7
   # - i386
 
 options:
